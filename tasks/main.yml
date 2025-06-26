@@ -38,6 +38,20 @@
     group: root
   notify: Restart fail2ban
 
+- name: Dnf-automatic - Configure upgrade_type
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: "^upgrade_type "
+    line: "upgrade_type = security"
+    state: present
+
+- name: Dnf-automatic - Configure apply_updates
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: "^apply_updates "
+    line: "apply_updates = yes"
+    state: present
+
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
