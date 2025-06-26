@@ -52,6 +52,24 @@
     line: "apply_updates = yes"
     state: present
 
+- name: Firewalld - Enabled and started
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: Fail2ban - Enabled and started
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
+
+- name: Dnf-automatic - Enabled and started
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    enabled: true
+    state: started
+
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
