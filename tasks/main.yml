@@ -6,3 +6,29 @@
       - ansible_facts['distribution_major_version'] in ['8', '9']
     fail_msg: "Supports RockyLinux versions 8 or 9. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
     success_msg: "Running on RockyLinux {{ ansible_facts['distribution_major_version'] }}."
+
+- name: Enable Extra Packages for Enterprise Linux (EPEL) repository
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+
+- name: Install required packages
+  ansible.builtin.dnf:
+    name:
+      - firewalld
+      - fail2ban
+      - dnf-automatic
+      - xorg-x11-xauth
+    state: present
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: List installed package versions
+  ansible.builtin.debug:
+    msg:
+      - "firewalld: {{ ansible_facts.packages['firewalld'][0].version }}-{{ ansible_facts.packages['firewalld'][0].release }}"
+      - "fail2ban: {{ ansible_facts.packages['fail2ban'][0].version }}-{{ ansible_facts.packages['fail2ban'][0].release }}"
+      - "dnf-automatic: {{ ansible_facts.packages['dnf-automatic'][0].version }}-{{ ansible_facts.packages['dnf-automatic'][0].release }}"
+      - "xorg-x11-xauth: {{ ansible_facts.packages['xorg-x11-xauth'][0].version }}-{{ ansible_facts.packages['xorg-x11-xauth'][0].release }}"
