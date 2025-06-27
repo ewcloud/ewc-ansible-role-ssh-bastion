@@ -1,0 +1,17 @@
+{
+  "name": "ewc-ansible-role-ssh-bastion",
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.eumetsat.int/HP-EWC/ewc-community-hub/ewcloud/ewc-ansible-role-ssh-bastion"
+  },
+  "devDependencies": {
+    "semantic-release": "^24.2.5",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/gitlab": "^13.2.5",
+    "@semantic-release/exec": "^7.0.3",
+    "@semantic-release/release-notes-generator": "^14.0.3",
+    "conventional-changelog-conventionalcommits": "^6.0.0"
+  }
+}
