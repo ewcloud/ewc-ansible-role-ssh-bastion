@@ -1,0 +1,83 @@
+---
+- name: Verify Rocky Linux distribution and version
+  ansible.builtin.assert:
+    that:
+      - ansible_facts['distribution'] == 'Rocky'
+      - ansible_facts['distribution_major_version'] in ['8', '9']
+    fail_msg: "Supports RockyLinux versions 8 or 9. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
+    success_msg: "Running on RockyLinux {{ ansible_facts['distribution_major_version'] }}."
+
+- name: Enable Extra Packages for Enterprise Linux (EPEL) repository
+  ansible.builtin.dnf:
+    name: epel-release
+    state: present
+
+- name: Install required packages
+  ansible.builtin.dnf:
+    name:
+      - firewalld
+      - fail2ban
+      - dnf-automatic
+      - xorg-x11-xauth
+    state: present
+
+- name: SSH - Disallow root SSH access
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+  notify: Restart sshd
+
+- name: Configure /etc/fail2ban/jail.d/ssh.conf
+  ansible.builtin.template:
+    src: ssh.conf.j2
+    dest: /etc/fail2ban/jail.d/ssh.conf
+    mode: '0644'
+    owner: root
+    group: root
+  notify: Restart fail2ban
+
+- name: Dnf-automatic - Configure upgrade_type
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: "^upgrade_type "
+    line: "upgrade_type = security"
+    state: present
+
+- name: Dnf-automatic - Configure apply_updates
+  ansible.builtin.lineinfile:
+    path: /etc/dnf/automatic.conf
+    regexp: "^apply_updates "
+    line: "apply_updates = yes"
+    state: present
+
+- name: Firewalld - Enabled and started
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: true
+
+- name: Fail2ban - Enabled and started
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
+
+- name: Dnf-automatic - Enabled and started
+  ansible.builtin.systemd:
+    name: dnf-automatic.timer
+    enabled: true
+    state: started
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: List installed package versions
+  ansible.builtin.debug:
+    msg:
+      - "firewalld: {{ ansible_facts.packages['firewalld'][0].version }}-{{ ansible_facts.packages['firewalld'][0].release }}"
+      - "fail2ban: {{ ansible_facts.packages['fail2ban'][0].version }}-{{ ansible_facts.packages['fail2ban'][0].release }}"
+      - "dnf-automatic: {{ ansible_facts.packages['dnf-automatic'][0].version }}-{{ ansible_facts.packages['dnf-automatic'][0].release }}"
+      - "xorg-x11-xauth: {{ ansible_facts.packages['xorg-x11-xauth'][0].version }}-{{ ansible_facts.packages['xorg-x11-xauth'][0].release }}"
