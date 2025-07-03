@@ -1,4 +1,11 @@
 ---
+- name: Validate user inputs
+  ansible.builtin.assert:
+    that:
+      - whitelisted_ip_ranges is not string and whitelisted_ip_ranges is not mapping and whitelisted_ip_ranges is iterable and whitelisted_ip_ranges | length > 0
+    fail_msg: "Input validation failed. See README.md for information on required inputs and their format. Got: '{{ whitelisted_ip_ranges }}'"
+    success_msg: "User input configuration is valid."
+
 - name: Verify Rocky Linux distribution and version
   ansible.builtin.assert:
     that:
