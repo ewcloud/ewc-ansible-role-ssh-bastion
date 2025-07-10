@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://gitlab.eumetsat.int/HP-EWC/ewc-community-hub/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.1.0...1.2.0) (2025-07-10)
+
+
+### Features
+
+* Set input values as optional ([e47abab](https://gitlab.eumetsat.int/HP-EWC/ewc-community-hub/ewcloud/ewc-ansible-role-ssh-bastion/commit/e47abab940963cd17c2a389775507462b5cb115c))
+
 ## [1.1.0](https://gitlab.eumetsat.int/HP-EWC/ewc-community-hub/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.0.0...1.1.0) (2025-07-03)
 
 ### Features
