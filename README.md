@@ -15,6 +15,12 @@ EWC networks from the public internet via SSH.
 See the [LICENSE](./LICENSE) file for licensing information as it pertains to
 files in this repository.
 
+## Authentication
+
+Before proceeding, if you lack OpenStack Application Credentials or do not know
+how to make them available to Ansible in your development environment, make sure
+to check out the [EWC documentation](https://confluence.ecmwf.int/display/EWCLOUDKB/EWC+-+How+to+request+Openstack+Application+Credentials).
+
 ## Usage
 
 The step-by-step described below assume your local file system follows the 
@@ -22,7 +28,8 @@ example structure below, with `ewc-ansible-role-ssh-bastion` being a clone of th
 repository:
 ```
 .
-├── ewc-ansible-role-ssh-bastion
+├── roles
+│   └── ewc-ansible-role-ssh-bastion
 ├── inventory.yml
 └── playbook.yml
 ```
@@ -36,7 +43,7 @@ to reach the virtual machine you wish to configure:
 ewcloud:
   hosts:
     ssh_bastion:
-      ansible_python_interpreter: /usr/bin/bython3
+      ansible_python_interpreter: /usr/bin/python3
       ansible_host: <add the IPV4 address of the target host>
       ansible_ssh_private_key_file: <add the path to local SSH RSA private key file>
       ansible_user: <add the username which owns the SSH RSA private key >
@@ -72,24 +79,30 @@ ansible-playbook -i inventory.yml playbook.yml
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. Example: `['10.0.0.0/24']` | `list(string)` | no | n/a |
+| whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
 
 ## Final Environment
->⚠️ Versions listed here refer only to those available for RockyLinux 8
-packages as of June 26th, 2025. As new security patches/features are 
-published by their authors, and newer RockyLinux image versions are 
-introduced into the EWC, the effective versions installed in your 
-environment might be higher.
+
+### RockyLinux 8 Environment
 
 Applying this template will trigger the installation of the following 
-open-source packages onto your desired target host:
+open-source packages onto your desired target RockyLinux 8 host:
 
 | Name | Version | License | Package Info |
 |------|---------|---------|--------------|
-| firewalld | >= 0.9.11-9.el8_10 | GPLv2+ | http://www.firewalld.org |
-| fail2ban | >= 1.0.2-3.el8 | GPLv2+ | https://www.fail2ban.org |
-| dnf-automaitc | >= 4.7.0-20.el8 | GPLv2+ | https://github.com/rpm-software-management/dnf |
-| xorg-x11-xauth | >= 1.0.9-12.el8 | MIT | https://www.x.org |
+| firewalld | 0.9 | GPLv2+ | http://www.firewalld.org |
+| fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
+| xorg-x11-xauth | 1.0 | MIT | https://www.x.org |
+
+### RockyLinux 9 Environment
+
+Likewise, on your desired target RockyLinux9 host, the template will trigger installation of the following open-source packages:
+
+| Name | Version | License | Package Info |
+|------|---------|---------|--------------|
+| firewalld | 1.3 | GPLv2+ | http://www.firewalld.org |
+| fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
+| xorg-x11-xauth | 1.1 | MIT | https://www.x.org |
 
 ## Changelog
 All notable changes (i.e. fixes, features and breaking changes) are documented 
