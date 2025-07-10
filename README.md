@@ -72,7 +72,7 @@ ansible-playbook -i inventory.yml playbook.yml
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| whitelist_ip_ranges | IP ranges (in CIDR format) to be whitelisted in Fail2ban configuration | `list(string)` | `["127.0.0.1/8"]` | yes |
+| whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. Example: `['10.0.0.0/24']` | `list(string)` | no | n/a |
 
 ## Final Environment
 >⚠️ Versions listed here refer only to those available for RockyLinux 8
