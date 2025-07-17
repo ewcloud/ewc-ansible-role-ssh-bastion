@@ -47,20 +47,6 @@
     group: root
   notify: Restart fail2ban
 
-- name: Dnf-automatic - Configure upgrade_type
-  ansible.builtin.lineinfile:
-    path: /etc/dnf/automatic.conf
-    regexp: "^upgrade_type "
-    line: "upgrade_type = security"
-    state: present
-
-- name: Dnf-automatic - Configure apply_updates
-  ansible.builtin.lineinfile:
-    path: /etc/dnf/automatic.conf
-    regexp: "^apply_updates "
-    line: "apply_updates = yes"
-    state: present
-
 - name: Firewalld - Enabled and started
   ansible.builtin.service:
     name: firewalld
@@ -73,12 +59,6 @@
     state: started
     enabled: true
 
-- name: Dnf-automatic - Enabled and started
-  ansible.builtin.systemd:
-    name: dnf-automatic.timer
-    enabled: true
-    state: started
-
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
@@ -88,5 +68,4 @@
     msg:
       - "firewalld: {{ ansible_facts.packages['firewalld'][0].version }}-{{ ansible_facts.packages['firewalld'][0].release }}"
       - "fail2ban: {{ ansible_facts.packages['fail2ban'][0].version }}-{{ ansible_facts.packages['fail2ban'][0].release }}"
-      - "dnf-automatic: {{ ansible_facts.packages['dnf-automatic'][0].version }}-{{ ansible_facts.packages['dnf-automatic'][0].release }}"
       - "xorg-x11-xauth: {{ ansible_facts.packages['xorg-x11-xauth'][0].version }}-{{ ansible_facts.packages['xorg-x11-xauth'][0].release }}"
