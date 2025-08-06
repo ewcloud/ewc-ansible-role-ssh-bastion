@@ -10,10 +10,18 @@ public IP address), as entrypoint for users who wish to reach private
 EWC networks from the public internet via SSH.
 
 ## Copyright and License
->💡 No dependencies are distributed as part of this repository.
+Copyright © EUMETSAT 2025.
 
-See the [LICENSE](./LICENSE) file for licensing information as it pertains to
-files in this repository.
+The provided code and instructions are licensed under the [MIT license](./LICENSE).
+They are intended to automate the setup of an environment that includes 
+third-party software components.
+The usage and distribution terms of the resulting environment are 
+subject to the individual licenses of those third-party libraries.
+
+Users are responsible for reviewing and complying with the licenses of
+all third-party components included in the environment.
+
+Contact [EUMETSAT](http://www.eumetsat.int) for details on the usage and distribution terms.
 
 ## Usage
 
@@ -75,26 +83,24 @@ ansible-playbook -i inventory.yml playbook.yml
 |------|-------------|------|---------|:--------:|
 | whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
 
-## Final Environment
+## SW Bill of Materials (SBoM)
+
+Third-party components used in the resulting environment.
 
 ### RockyLinux 8 Environment
 
-Applying this template will trigger the installation of the following 
-open-source packages onto your desired target RockyLinux 8 host:
+The following components will be included in the resulting environment:
 
-| Name | Version | License | Package Info |
+| Component | Version | License | Home URL |
 |------|---------|---------|--------------|
-| firewalld | 0.9 | GPLv2+ | http://www.firewalld.org |
 | fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
 | xorg-x11-xauth | 1.0 | MIT | https://www.x.org |
 
 ### RockyLinux 9 Environment
+The following components will be included in the resulting environment:
 
-Likewise, on your desired target RockyLinux9 host, the template will trigger installation of the following open-source packages:
-
-| Name | Version | License | Package Info |
+| Component | Version | License | Home URL |
 |------|---------|---------|--------------|
-| firewalld | 1.3 | GPLv2+ | http://www.firewalld.org |
 | fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
 | xorg-x11-xauth | 1.1 | MIT | https://www.x.org |
 
