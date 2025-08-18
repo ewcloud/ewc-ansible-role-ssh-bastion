@@ -11,9 +11,9 @@
   ansible.builtin.assert:
     that:
       - ansible_facts['distribution'] == 'Rocky'
-      - ansible_facts['distribution_major_version'] in ['8', '9']
-    fail_msg: "Supports RockyLinux versions 8 or 9. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
-    success_msg: "Running on RockyLinux {{ ansible_facts['distribution_major_version'] }}."
+      - ansible_facts['distribution_version'] in ['8.10', '9.5']
+    fail_msg: "Supports RockyLinux versions 8.10 or 9.5. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}."
+    success_msg: "Running on RockyLinux {{ ansible_facts['distribution_version'] }}."
 
 - name: Pin package versions prior to installation
   ansible.builtin.set_fact:
@@ -22,7 +22,7 @@
         fail2ban: "fail2ban-1.0.2-3.el8"
         xorg-x11-xauth: "xorg-x11-xauth-1.0.9-12.el8"
       rockylinux_9:
-        fail2ban: "fail2ban-1.0.2-12.el9"
+        fail2ban: "fail2ban-1.1.0-6.el9"
         xorg-x11-xauth: "xorg-x11-xauth-1.1-10.el9"
 
 - name: Enable Extra Packages for Enterprise Linux (EPEL) repository

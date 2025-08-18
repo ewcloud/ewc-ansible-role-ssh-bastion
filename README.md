@@ -5,7 +5,7 @@ This repository contains a configuration template
 to customize your environment in the
 [European Weather Cloud (EWC)](https://europeanweather.cloud/).
 The template is designed to:
-* Configure a pre-existing virtual machine running RockyLinux version 8 or 9,
+* Configure a pre-existing virtual machine running RockyLinux version 8.10 or 9.5,
 with public IP address, and a minimum recommended 4GB of RAM, as entrypoint for
 users who wish to reach private EWC networks, from the public internet, via SSH.
 
@@ -87,7 +87,7 @@ ansible-playbook -i inventory.yml playbook.yml
 
 Third-party components used in the resulting environment.
 
-### RockyLinux 8 Environment
+### RockyLinux 8.10 Environment
 
 The following components will be included in the resulting environment:
 
@@ -96,7 +96,7 @@ The following components will be included in the resulting environment:
 | fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
 | xorg-x11-xauth | 1.0 | MIT | https://www.x.org |
 
-### RockyLinux 9 Environment
+### RockyLinux 9.5 Environment
 The following components will be included in the resulting environment:
 
 | Component | Version | License | Home URL |
