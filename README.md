@@ -5,9 +5,9 @@ This repository contains a configuration template
 to customize your environment in the
 [European Weather Cloud (EWC)](https://europeanweather.cloud/).
 The template is designed to:
-* Configure pre-existing RockyLinux 8 or RockyLinux 9 virtual machines (with 
-public IP address), as entrypoint for users who wish to reach private
-EWC networks from the public internet via SSH.
+* Configure a pre-existing virtual machine running RockyLinux version 8 or 9,
+with public IP address, and a minimum recommended 4GB of RAM, as entrypoint for
+users who wish to reach private EWC networks, from the public internet, via SSH.
 
 ## Copyright and License
 Copyright © EUMETSAT 2025.
