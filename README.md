@@ -59,7 +59,7 @@ Then, proceed to create an Ansible Playbook file to load your customizations:
 ```yaml
 # playbook.yml
 ---
-- name: SSH Bastion Library Item Automation Script
+- name: Setup SSH daemon on RockyLinux
   hosts: ssh_bastion
   become: true
   become_user: root
@@ -81,7 +81,7 @@ ansible-playbook -i inventory.yml playbook.yml
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
+| whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, do not set. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
 
 ## SW Bill of Materials (SBoM)
 
