@@ -3,6 +3,21 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.2.0...1.3.0) (2025-09-05)
+
+
+### Bug Fixes
+
+* Raise minimum RAM requirement for underlying VM ([85c450e](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/85c450ed71d15a5ad59b1e21bc57f67addd98b6c))
+* Remove VM RAM validation to prevent false positives during role replay ([a943335](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/a9433352ab8c616ea94b532dfca6a85d0862f435))
+
+
+### Features
+
+* Disable automatic security patching ([7d6c0f5](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/7d6c0f55f347413cb0e87eb9d4edbb9e4945e9d3))
+* Pin packages versions ([623eb1b](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/623eb1b7f9489c9c45e98a5fc2a1dfdf8632ea00))
+* Restrict supported Linux distros down to the minor version ([db007ef](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/db007ef4eafdc597785ce59a82a5c97d52845fad))
+
 # [1.2.0](https://gitlab.eumetsat.int/HP-EWC/ewc-community-hub/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.1.0...1.2.0) (2025-07-10)
 
 
