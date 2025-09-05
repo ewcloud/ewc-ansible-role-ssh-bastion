@@ -1,20 +1,29 @@
 ---
 - name: Validate user inputs
   ansible.builtin.assert:
-    that: "{{ item }}"
-    fail_msg: "Input validation failed. See README.md for information on required inputs and their format. Got: '{{ whitelisted_ip_ranges }}'"
+    that:
+      - whitelisted_ip_ranges == '' or (whitelisted_ip_ranges is defined and whitelisted_ip_ranges is iterable and whitelisted_ip_ranges | length > 0)
+      - whitelisted_ip_ranges == '' or (whitelisted_ip_ranges | map('ansible.utils.ipaddr') | list | select | length == whitelisted_ip_ranges | length)
+    fail_msg: "Input validation failed. See README.md for information on required inputs and their format."
     success_msg: "User input configuration is valid."
-  loop:
-    - "whitelisted_ip_ranges == '' or (whitelisted_ip_ranges is iterable and whitelisted_ip_ranges | length > 0)"
-    - "whitelisted_ip_ranges == '' or (whitelisted_ip_ranges | ansible.utils.ipv4)"
 
-- name: Verify Rocky Linux distribution and version
+- name: Verify Linux distribution version
   ansible.builtin.assert:
     that:
       - ansible_facts['distribution'] == 'Rocky'
-      - ansible_facts['distribution_major_version'] in ['8', '9']
-    fail_msg: "Supports RockyLinux versions 8 or 9. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_major_version'] }}."
-    success_msg: "Running on RockyLinux {{ ansible_facts['distribution_major_version'] }}."
+      - ansible_facts['distribution_version'] in ['8.10', '9.5']
+    fail_msg: "Supports RockyLinux versions 8.10 or 9.5. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}."
+    success_msg: "Running on RockyLinux {{ ansible_facts['distribution_version'] }}."
+
+- name: Pin package versions prior to installation
+  ansible.builtin.set_fact:
+    package_versions:
+      rockylinux_8:
+        fail2ban: "fail2ban-1.0.2-3.el8"
+        xorg-x11-xauth: "xorg-x11-xauth-1.0.9-12.el8"
+      rockylinux_9:
+        fail2ban: "fail2ban-1.1.0-6.el9"
+        xorg-x11-xauth: "xorg-x11-xauth-1.1-10.el9"
 
 - name: Enable Extra Packages for Enterprise Linux (EPEL) repository
   ansible.builtin.dnf:
@@ -23,12 +32,12 @@
 
 - name: Install required packages
   ansible.builtin.dnf:
-    name:
-      - firewalld
-      - fail2ban
-      - dnf-automatic
-      - xorg-x11-xauth
+    name: "{{ item }}"
     state: present
+    allow_downgrade: true
+  loop:
+    - "{{ package_versions['rockylinux_' + ansible_facts['distribution_major_version']]['fail2ban'] }}"
+    - "{{ package_versions['rockylinux_' + ansible_facts['distribution_major_version']]['xorg-x11-xauth'] }}"
 
 - name: SSH - Disallow root SSH access
   ansible.builtin.lineinfile:
@@ -47,20 +56,6 @@
     group: root
   notify: Restart fail2ban
 
-- name: Dnf-automatic - Configure upgrade_type
-  ansible.builtin.lineinfile:
-    path: /etc/dnf/automatic.conf
-    regexp: "^upgrade_type "
-    line: "upgrade_type = security"
-    state: present
-
-- name: Dnf-automatic - Configure apply_updates
-  ansible.builtin.lineinfile:
-    path: /etc/dnf/automatic.conf
-    regexp: "^apply_updates "
-    line: "apply_updates = yes"
-    state: present
-
 - name: Firewalld - Enabled and started
   ansible.builtin.service:
     name: firewalld
@@ -73,12 +68,6 @@
     state: started
     enabled: true
 
-- name: Dnf-automatic - Enabled and started
-  ansible.builtin.systemd:
-    name: dnf-automatic.timer
-    enabled: true
-    state: started
-
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
@@ -86,7 +75,5 @@
 - name: List installed package versions
   ansible.builtin.debug:
     msg:
-      - "firewalld: {{ ansible_facts.packages['firewalld'][0].version }}-{{ ansible_facts.packages['firewalld'][0].release }}"
       - "fail2ban: {{ ansible_facts.packages['fail2ban'][0].version }}-{{ ansible_facts.packages['fail2ban'][0].release }}"
-      - "dnf-automatic: {{ ansible_facts.packages['dnf-automatic'][0].version }}-{{ ansible_facts.packages['dnf-automatic'][0].release }}"
       - "xorg-x11-xauth: {{ ansible_facts.packages['xorg-x11-xauth'][0].version }}-{{ ansible_facts.packages['xorg-x11-xauth'][0].release }}"
