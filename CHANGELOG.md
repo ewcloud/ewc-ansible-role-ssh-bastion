@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.3.0...1.4.0) (2025-09-22)
+
+
+### Features
+
+* Fail2Ban input rename for clear user configuration ([#3](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/issues/3)) ([51cbfe2](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/51cbfe2bde698baf95c763157291f86941ba111c))
+
 # [1.3.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.2.0...1.3.0) (2025-09-05)
 
 
