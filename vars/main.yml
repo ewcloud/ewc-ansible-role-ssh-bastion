@@ -1,2 +1,2 @@
 ---
-whitelisted_ip_ranges: null
+fail2ban_whitelisted_ip_ranges: null
