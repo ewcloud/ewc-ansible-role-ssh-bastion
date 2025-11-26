@@ -84,7 +84,7 @@ ansible-playbook -i inventory.yml playbook.yml
 | fail2ban_whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, do not set. Examples: `''`, `['10.0.0.0/24']` | `list(string)` | n/a | yes |
 
 ## Dependencies
-> 💡 Upon execution, the template creates SBOM in SPDX format and stores it as `sbom.json` within VM's file system root directory
+> 💡 Upon execution, a SBOM (SPDX format) is auto-generated and stored in the VM's file system root directory (see `/sbom.json`).
 
 Third-party components used in the resulting environment.
 
