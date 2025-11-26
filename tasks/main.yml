@@ -84,3 +84,16 @@
     msg:
       - "fail2ban: {{ ansible_facts.packages['fail2ban'][0].version }}-{{ ansible_facts.packages['fail2ban'][0].release }}"
       - "xorg-x11-xauth: {{ ansible_facts.packages['xorg-x11-xauth'][0].version }}-{{ ansible_facts.packages['xorg-x11-xauth'][0].release }}"
+
+- name: Ephemeral setup of Trivy binary for SBOM auto-generation
+  ansible.builtin.shell:
+    cmd: |
+      set -o pipefail
+      curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /tmp
+    creates: /tmp/trivy
+
+- name: Create SBOM in SPDX format and store it as sbom.json within VM's file system root directory
+  ansible.builtin.command:
+    cmd: ./trivy rootfs --pkg-types os --format spdx-json --output /sbom.json --scanners vuln /
+    chdir: /tmp
+  changed_when: true
