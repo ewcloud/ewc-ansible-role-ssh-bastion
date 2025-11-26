@@ -81,7 +81,7 @@ ansible-playbook -i inventory.yml playbook.yml
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| fail2ban_whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, do not set. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
+| fail2ban_whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, do not set. Examples: `''`, `['10.0.0.0/24']` | `list(string)` | n/a | yes |
 
 ## Dependencies
 
