@@ -15,16 +15,6 @@
     fail_msg: "Supports RockyLinux versions 8.10 or 9.5. Detected: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}."
     success_msg: "Running on RockyLinux {{ ansible_facts['distribution_version'] }}."
 
-- name: Pin package versions prior to installation
-  ansible.builtin.set_fact:
-    package_versions:
-      rockylinux_8:
-        fail2ban: "fail2ban-1.0.2-3.el8"
-        xorg-x11-xauth: "xorg-x11-xauth-1.0.9-12.el8"
-      rockylinux_9:
-        fail2ban: "fail2ban-1.1.0-6.el9"
-        xorg-x11-xauth: "xorg-x11-xauth-1.1-10.el9"
-
 - name: Enable Extra Packages for Enterprise Linux (EPEL) repository
   ansible.builtin.dnf:
     name: epel-release
@@ -32,12 +22,11 @@
 
 - name: Install required packages
   ansible.builtin.dnf:
-    name: "{{ item }}"
+    name:
+      - fail2ban
+      - xorg-x11-xauth
     state: present
-    allow_downgrade: true
-  loop:
-    - "{{ package_versions['rockylinux_' + ansible_facts['distribution_major_version']]['fail2ban'] }}"
-    - "{{ package_versions['rockylinux_' + ansible_facts['distribution_major_version']]['xorg-x11-xauth'] }}"
+    allow_downgrade: false
 
 - name: SSH - Disallow root SSH access
   ansible.builtin.lineinfile:
