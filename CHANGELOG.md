@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.4.0...1.5.0) (2025-12-03)
+
+
+### Features
+
+* Automated patch rollout and test automation support ([#4](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/issues/4)) ([8f93b03](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/8f93b03b5a0fc75dd6e11756e2a73f1d2a612b3a))
+
 # [1.4.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.3.0...1.4.0) (2025-09-22)
 
 
