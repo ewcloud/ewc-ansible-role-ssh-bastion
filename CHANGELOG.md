@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.5.0...1.5.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* Portable bash command for Trivy installation ([9849bf3](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/9849bf371a632fb26efe669a6fb849b2b48323c3))
+
 # [1.5.0](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.4.0...1.5.0) (2025-12-03)
 
 
