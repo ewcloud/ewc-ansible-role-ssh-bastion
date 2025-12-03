@@ -5,7 +5,7 @@ This repository contains a configuration template
 to customize your environment in the
 [European Weather Cloud (EWC)](https://europeanweather.cloud/).
 The template is designed to:
-* Configure a pre-existing virtual machine running RockyLinux version 8.10 or 9.5,
+* Configure a pre-existing virtual machine running RockyLinux version 9 or 8,
 with public IP address, and a minimum recommended 4GB of RAM, as entrypoint for
 users who wish to reach private EWC networks, from the public internet, via SSH.
 
@@ -81,28 +81,18 @@ ansible-playbook -i inventory.yml playbook.yml
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| fail2ban_whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, do not set. Example: `['10.0.0.0/24']` | `list(string)` | n/a | no |
+| fail2ban_whitelist_ip_ranges | IPv4 ranges (in CIDR format) to be whitelisted in Fail2ban configuration. When in doubt, set as an empty string. Examples: `''`, `['10.0.0.0/24']` | `list(string)` | n/a | yes |
 
-## SW Bill of Materials (SBoM)
+## Dependencies
+> 💡 Upon execution, a SBOM (SPDX format) is auto-generated and stored in the VM's file system root directory (see `/sbom.json`).
 
-Third-party components used in the resulting environment.
+The following third-party components will be included in the resulting environment:
 
-### RockyLinux 8.10 Environment
+| Component | Home URL |
+|------|--------------|
+| fail2ban | https://www.fail2ban.org |
+| xorg-x11-xauth | https://www.x.org |
 
-The following components will be included in the resulting environment:
-
-| Component | Version | License | Home URL |
-|------|---------|---------|--------------|
-| fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
-| xorg-x11-xauth | 1.0 | MIT | https://www.x.org |
-
-### RockyLinux 9.5 Environment
-The following components will be included in the resulting environment:
-
-| Component | Version | License | Home URL |
-|------|---------|---------|--------------|
-| fail2ban | 1.0 | GPLv2+ | https://www.fail2ban.org |
-| xorg-x11-xauth | 1.1 | MIT | https://www.x.org |
 
 ## Changelog
 All notable changes (i.e. fixes, features and breaking changes) are documented 
