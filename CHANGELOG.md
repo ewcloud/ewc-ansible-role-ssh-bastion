@@ -3,6 +3,13 @@
 All notable changes to this project are documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.2](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.5.1...1.5.2) (2026-02-13)
+
+
+### Bug Fixes
+
+* Support nonetype trivial default ([#5](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/issues/5)) ([b7b873f](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/commit/b7b873f750c9ade9e818a1b1623319349fcea4d2))
+
 ## [1.5.1](https://github.com/ewcloud/ewc-ansible-role-ssh-bastion/compare/1.5.0...1.5.1) (2025-12-03)
 
 
