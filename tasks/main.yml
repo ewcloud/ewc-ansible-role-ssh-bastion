@@ -19,6 +19,10 @@
   ansible.builtin.dnf:
     name: epel-release
     state: present
+    register: epel_result
+  retries: 5
+  delay: 10
+  until: epel_result is succeeded
 
 - name: Install required packages
   ansible.builtin.dnf:
